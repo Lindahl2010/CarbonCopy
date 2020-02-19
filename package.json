@@ -1,0 +1,33 @@
+{
+  "name": "carboncopy",
+  "version": "1.0.0",
+  "description": "Carbon Copy image hosting web application",
+  "main": "cc_app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lindahl2010/CarbonCopy.git"
+  },
+  "keywords": [
+    "Image",
+    "hosting",
+    "Media",
+    "Upload"
+  ],
+  "author": "Eli Lindahl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lindahl2010/CarbonCopy/issues"
+  },
+  "homepage": "https://github.com/Lindahl2010/CarbonCopy#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.6",
+    "mysql": "^2.18.1",
+    "req-flash": "0.0.3"
+  }
+}

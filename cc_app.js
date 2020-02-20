@@ -6,8 +6,24 @@ const path = require('path');
 const app = express();
 
 const {getHomePage} = require('./routes/cc_index')
-const {upload, uploadPage} = require('./routes/upload')
+const {upload, uploadPage} = require('./routes/image')
 const port = 5000;
+
+const db = mysql.createConnection ({
+    host: '192.168.137.130',
+    user: 'linelij',
+    password: 'Password01',
+    database: 'carbon_copy'
+});
+
+// connect to database
+db.connect((err) => {
+    if (err) {
+        throw err;
+    }
+    console.log('Connected to database');
+});
+global.db = db;
 
 // Middleware Configuration
 app.set('port', process.env.PORT || port); // Sets Express to use this port
@@ -18,7 +34,7 @@ app.use(fileUpload()); // Configure file upload
 // Routes for the application
 app.get('/', getHomePage);
 app.get('/upload', uploadPage);
-app.post('/upload', uploadPage);
+app.post('/upload', upload);
 
 // Set app to listen on specified port 
 app.listen(port, () => {

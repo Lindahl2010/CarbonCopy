@@ -1,10 +1,12 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
+const session = require('express-session');
 const mysql = require('mysql');
 const path = require('path');
 const app = express();
 
-const {getHomePage} = require('./routes/index')
+const {getHomePage} = require('./routes/cc_index')
+const {upload, uploadPage} = require('./routes/upload')
 const port = 5000;
 
 // Middleware Configuration
@@ -14,3 +16,11 @@ app.use(express.static(path.join(__dirname, 'public'))); // Configures Express t
 app.use(fileUpload()); // Configure file upload
 
 // Routes for the application
+app.get('/', getHomePage);
+app.get('/upload', uploadPage);
+app.post('/upload', uploadPage);
+
+// Set app to listen on specified port 
+app.listen(port, () => {
+    console.log('Server is running on port: ' + port);
+});

@@ -18,7 +18,7 @@ app.use(fileUpload()); // Configure file upload
 // Routes for the application
 app.get('/', getHomePage);
 app.get('/upload', uploadPage);
-app.post('/upload', uploadPage);
+app.post('/upload', upload);
 
 // Set app to listen on specified port 
 app.listen(port, () => {

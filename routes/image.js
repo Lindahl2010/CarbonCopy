@@ -21,11 +21,13 @@ module.exports = {
             return res.status(500).send(err);
           }
       
-          res.redirect('/');
+          res.redirect('/upload');
 
         });
     },
     collectionPage: (req, res) => {
-      
+      res.render('collection.ejs', {
+        title: 'Carbon Copy - Collection'
+      });
     }
 }

@@ -1,9 +1,12 @@
-<%- include ('header.ejs'); -%>
-<form action="" method="post" encType="multipart/form-data">
-  <div class="form-group">
-    <label for="uploadImage">Example file input</label>
-    <input type="file" name="image" id="uploadImage" class="" required>
-    <button type="submit" class="btn btn-primary">Upload</button>
-  </div>
-</form>
-<%- include ('footer.ejs'); -%>
+<%- include ('partials/header.ejs'); -%>
+<div class="container upload-top">
+  <form action="" method="post" encType="multipart/form-data">
+    <div class="row justify-content-center">
+      <div class="center-box">
+        <input type="file" name="image" id="uploadImage" class="" required>
+        <button type="submit" class="btn btn-primary">Upload</button>
+      </div>
+    </div>
+  </form>
+</div>
+<%- include ('partials/footer.ejs'); -%>

@@ -11,7 +11,7 @@ const {aboutPage, contactPage, privacyPage, tosPage} = require('./routes/info');
 const port = 5000;
 
 const db = mysql.createConnection ({
-    host: '192.168.137.130',
+    host: '192.168.183.11',
     user: 'linelij',
     password: 'Password01',
     database: 'carbon_copy'
@@ -28,8 +28,7 @@ global.db = db;
 
 // Middleware Configuration
 app.set('port', process.env.PORT || port); // Sets Express to use this port
-app.set('views', __dirname + '/views'); // Sets Express to look in this folder to render our views
-// app.set('views', __dirname + '/views/info');
+app.set('views', [__dirname + '/views', __dirname + '/views/info']); // Sets Express to look in this folder to render our views
 app.use(express.static(path.join(__dirname, 'public'))); // Configures Express to use this public folder
 app.use(fileUpload()); // Configure file upload
 

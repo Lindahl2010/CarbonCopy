@@ -3,7 +3,7 @@ const fs = require('fs');
 module.exports = {
     uploadPage: (req, res) => {
         res.render('upload.ejs', {
-            title: 'Carbon Copy Upload',
+            title: 'Carbon Copy - Upload',
             message: ''
         });
     },
@@ -22,7 +22,7 @@ module.exports = {
             message = 'Image already exists.';
             res.render('upload.ejs', {
                 message,
-                title: 'Carbon Copy Upload'
+                title: 'Carbon Copy - Upload'
             });
           } else {
               if (uploadFile.mimetype === 'image/png' || uploadFile.mimetype === 'image/jpeg' || uploadFile.mimetype === 'image/gif') {
@@ -45,7 +45,7 @@ module.exports = {
                 message = "Invalid File format. Only 'gif', 'jpeg' and 'png' images are allowed.";
                 res.render('upload.ejs', {
                     message,
-                    title: 'Carbon Copy Upload'
+                    title: 'Carbon Copy - Upload'
                 });
               }
             }

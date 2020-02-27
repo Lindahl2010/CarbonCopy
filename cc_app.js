@@ -29,6 +29,7 @@ global.db = db;
 // Middleware Configuration
 app.set('port', process.env.PORT || port); // Sets Express to use this port
 app.set('views', [__dirname + '/views', __dirname + '/views/info']); // Sets Express to look in this folder to render our views
+app.set('view engine', 'ejs'); // Configures the template engine 
 app.use(express.static(path.join(__dirname, 'public'))); // Configures Express to use this public folder
 app.use(fileUpload()); // Configure file upload
 

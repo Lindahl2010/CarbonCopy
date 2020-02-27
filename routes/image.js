@@ -61,8 +61,8 @@ module.exports = {
         }
         
         var col1 = [], col2 = [], col3 = [];
-        var uno = result.length/3;
-        var dos = (result.length/3)*2;
+        var uno = Math.ceil(result.length/3);
+        var dos = Math.ceil((result.length/3)*2);
         var tres = result.length;
 
         for (i = 0; i < 3; i++) {

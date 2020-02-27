@@ -15,6 +15,9 @@
       <title><%= title %></title>
   </head>
   <style>
+    body {
+      overflow-x: hidden;
+    }
     .upload-top {
       padding: 40px 0px;
     }
@@ -23,6 +26,13 @@
       padding-left: 24px;
       padding-right: 24px;
     }
+    .col-page-spacer.row {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .col-page-spacer.row.col {
+      flex: 50%;
+    }
     .center-box {
       margin-right: auto!important;
       margin-left: auto!important;
@@ -30,11 +40,13 @@
     .carousel-inner {
       background-color: grey;
     }
-    .col-gutter {
-      padding-left: 24px;
+    .row.col img {
+      vertical-align: middle;
     }
-    .image-bot {
-      padding-bottom: 24px;
+    .card-img-top {
+      width: 100%;
+      height: 20vw;
+      object-fit: cover;
     }
   </style>
   <body>

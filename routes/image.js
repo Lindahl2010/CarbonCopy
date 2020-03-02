@@ -92,5 +92,26 @@ module.exports = {
     },
     deleteImage: (req, res) => {
 
+      let image_name = req.params.img_name;
+      let imgQuery = 'SELECT img_name FROM `image_collection` WHERE img_name = "' + image_name + '"';
+      let deleteImage = 'DELETE FROM image_collection WHERE img_name = "' + image_name + '"';
+
+      db.query(imgQuery, (err, result) => {
+        if (err) {
+          return res.status(500).send(err);
+        }
+
+        fs.unlink(`public/img/${image_name}`, (err) => {
+          if (err) {
+            return res.status(500).send(err);
+          }
+          db.query(deleteImage, (err, result) => {
+            if (err) {
+              return res.status(500).send(err);
+            }
+            res.redirect('/collection');
+          });
+        });
+      });
     }
 }

@@ -5,6 +5,7 @@
         HTML File for displaying header of Carbon Copy Web Application
         Associated Assignment: Phase 1 3-Tier Web Application
         SENG3210 - Software Architecture 
+        
         Header of Carbon Copy
         Author: Eli Lindahl
         Date: 2/16/2020
@@ -15,8 +16,23 @@
       <title><%= title %></title>
   </head>
   <style>
+    body {
+      overflow-x: hidden;
+    }
     .upload-top {
       padding: 40px 0px;
+    }
+    .col-page-spacer {
+      margin-top: 50px;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+    .col-page-spacer.row {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .col-page-spacer.row.col {
+      flex: 50%;
     }
     .center-box {
       margin-right: auto!important;
@@ -25,6 +41,17 @@
     .carousel-inner {
       background-color: grey;
     }
+<<<<<<< HEAD
+=======
+    .row.col img {
+      vertical-align: middle;
+    }
+    .card-img-top {
+      width: 100%;
+      height: 20vw;
+      object-fit: cover;
+    }
+>>>>>>> f1d39c753fa133bf1531613c93a1f6771acd440f
   </style>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -53,9 +80,10 @@
               </div>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
+        <!-- <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        </form> -->
+        <a class="nav-link" href="/login">Login</a>
       </div>
     </nav>

@@ -6,7 +6,7 @@ const path = require('path');
 const app = express();
 
 const {getHomePage} = require('./routes/cc_index')
-const {upload, uploadPage, collectionPage} = require('./routes/image')
+const {upload, uploadPage, collectionPage, deleteImage} = require('./routes/image')
 const {aboutPage, contactPage, privacyPage, tosPage} = require('./routes/info');
 const port = 5000;
 
@@ -29,6 +29,7 @@ global.db = db;
 // Middleware Configuration
 app.set('port', process.env.PORT || port); // Sets Express to use this port
 app.set('views', [__dirname + '/views', __dirname + '/views/info']); // Sets Express to look in this folder to render our views
+app.set('view engine', 'ejs'); // Configures the template engine 
 app.use(express.static(path.join(__dirname, 'public'))); // Configures Express to use this public folder
 app.use(fileUpload()); // Configure file upload
 
@@ -40,6 +41,7 @@ app.get('/about', aboutPage);
 app.get('/contact', contactPage);
 app.get('/privacy', privacyPage);
 app.get('/terms-of-service', tosPage);
+app.get('/delete/:img_name', deleteImage);
 app.post('/upload', upload);
 
 // Set app to listen on specified port 

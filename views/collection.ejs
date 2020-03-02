@@ -1,3 +1,37 @@
 <%- include ('partials/header.ejs'); -%>
-
+<div class="col-page-spacer">
+    <div class="row">
+        <% if (images.length > 0) {%>
+            <div class="col">
+                <% imgCol1.forEach((image, index) => { %>
+                    <figure class="figure-img img-fluid">
+                        <img src="/img/<%= image.img_name %>" class="figure-img img-fluid" style="width: 100%;" alt="A generic square placeholder image with rounded corners in a figure.">
+                        <a href="/img/<%= image.img_name %>" download="<%= image.img_name %>">download</a>
+                        <a href="/delete/<%= image.img_name %>">delete</a>
+                    </figure>
+                <% }) %>
+            </div>
+            <div class="col">
+                <% imgCol2.forEach((image, index) => { %>
+                    <figure class="figure-img img-fluid">
+                        <img src="/img/<%= image.img_name %>" class="figure-img img-fluid" style="width: 100%;" alt="A generic square placeholder image with rounded corners in a figure.">
+                        <a href="/img/<%= image.img_name %>" download="<%= image.img_name %>">download</a>
+                        <a href="/delete/<%= image.img_name %>">delete</a>
+                    </figure>
+                <% }) %>
+            </div>
+            <div class="col">
+                <% imgCol3.forEach((image, index) => { %>
+                    <figure class="figure-img img-fluid">
+                        <img src="/img/<%= image.img_name %>" class="figure-img img-fluid" style="width: 100%;" alt="A generic square placeholder image with rounded corners in a figure.">
+                        <a href="/img/<%= image.img_name %>" download="<%= image.img_name %>">download</a>
+                        <a href="/delete/<%= image.img_name %>">delete</a>
+                    </figure>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <p class="text-center">No images found.</p>
+        <% } %>
+    </div>
+</div>
 <%- include ('partials/footer.ejs'); -%>

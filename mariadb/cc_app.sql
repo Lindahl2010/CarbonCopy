@@ -23,6 +23,8 @@ CREATE TABLE usr_accounts (
 
 CREATE TABLE image_collection (
     id INT(5) NOT NULL AUTO_INCREMENT,
-    img_name VARCHAR(255) NOT NULL,
+    uuid VARCHAR(8) NOT NULL,
+    img_name VARCHAR(255),
+    img_ext VARCHAR(16),
     PRIMARY KEY (id)
-)
+);

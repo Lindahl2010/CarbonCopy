@@ -11,9 +11,9 @@ const {aboutPage, contactPage, privacyPage, tosPage} = require('./routes/info');
 const port = 5000;
 
 const db = mysql.createConnection ({
-    host: '192.168.183.11',
-    user: 'linelij',
-    password: 'Password01',
+    host: '192.168.56.11',
+    user: 'user',
+    password: 'admin',
     database: 'carbon_copy'
 });
 
@@ -42,6 +42,31 @@ app.get('/contact', contactPage);
 app.get('/privacy', privacyPage);
 app.get('/terms-of-service', tosPage);
 app.post('/upload', upload);
+app.get('/i/:id', (req, res) => {
+    let uuid = req.params.id;
+
+    res.render('view.ejs', {
+        message:'',
+        title: 'Carbon Copy - View',
+        uuid,
+        ext: ''
+    });
+
+    /*
+    let imgQuery = `SELECT * FROM image_collection WHERE uuid = '${uuid}'`;
+        
+        
+    db.query(imgQuery, (err, result) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        if (result.length > 0) {
+            console.log(result);
+            
+            
+        }
+    }); */
+});
 
 // Set app to listen on specified port 
 app.listen(port, () => {

@@ -1,19 +1,24 @@
 const fs = require('fs');
+const shortid = require('shortid');
+const path = require('path');
 
 module.exports = {
     uploadPage: (req, res) => {
         res.render('upload.ejs', {
             title: 'Carbon Copy - Upload',
-            message: ''
+            message: '',
+            link:''
         });
     },
     upload: (req, res) => {
 
         let uploadFile = req.files.image;
-        let imageName = 'test.' + uploadFile.name;
+        let imgExt = path.extname(uploadFile.name);
+        let imgName = uploadFile.name.substr(0, uploadFile.name.length-imgExt.length);
 
-        let imgQuery = "SELECT * FROM image_collection WHERE img_name = '" + imageName + "'";
-
+        /*
+        let imgQuery = `SELECT * FROM image_collection WHERE img_name = '${imgName}'`;
+        
         db.query(imgQuery, (err, result) => {
           if (err) {
             return res.status(500).send(err);
@@ -25,20 +30,29 @@ module.exports = {
                 title: 'Carbon Copy - Upload'
             });
           } else {
+            */
               if (uploadFile.mimetype === 'image/png' || uploadFile.mimetype === 'image/jpeg' || uploadFile.mimetype === 'image/gif') {
-                uploadFile.mv(`public/img/${imageName}`, function(err) {
+                
+                let uuid = shortid.generate();
+
+                uploadFile.mv(`public/img/${uuid}`, function(err) {
                   if (err) {
                     return res.status(500).send(err);
                   }
 
-                  let query = "INSERT INTO image_collection (img_name) VALUES ('" + imageName + "')";
+                  let query = `INSERT INTO image_collection (uuid, img_name, img_ext) VALUES ('${uuid}', '${imgName}', '${imgExt}')`;
 
                   db.query(query, (err, result) => {
                     if (err) {
                       return res.status(500).send(err);
                     }
 
-                    res.redirect('/upload');
+                    //res.redirect('/upload');
+                    res.render('upload.ejs', {
+                      title: 'Carbon Copy - Upload',
+                      message: '',
+                      link: `http://localhost:5000/i/${uuid}`
+                  });
                   });
                 });
               } else {
@@ -48,8 +62,10 @@ module.exports = {
                     title: 'Carbon Copy - Upload'
                 });
               }
+          /*
             }
         });
+        */
     },
     collectionPage: (req, res) => {
 

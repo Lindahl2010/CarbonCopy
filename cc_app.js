@@ -41,6 +41,7 @@ app.get('/about', aboutPage);
 app.get('/contact', contactPage);
 app.get('/privacy', privacyPage);
 app.get('/terms-of-service', tosPage);
+app.get('/delete/:img_name', deleteImage);
 app.post('/upload', upload);
 
 // Set app to listen on specified port 

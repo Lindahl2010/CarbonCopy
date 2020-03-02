@@ -6,7 +6,8 @@
                 <% imgCol1.forEach((image, index) => { %>
                     <figure class="figure-img img-fluid">
                         <img src="/img/<%= image.img_name %>" class="figure-img img-fluid" style="width: 100%;" alt="A generic square placeholder image with rounded corners in a figure.">
-                        <figcaption class="figure-caption">A caption for the above image.</figcaption>
+                        <a href="/img/<%= image.img_name %>" download="<%= image.img_name %>">download</a>
+                        <a href="/delete/<%= image.img_name %>">delete</a>
                     </figure>
                 <% }) %>
             </div>
@@ -14,7 +15,8 @@
                 <% imgCol2.forEach((image, index) => { %>
                     <figure class="figure-img img-fluid">
                         <img src="/img/<%= image.img_name %>" class="figure-img img-fluid" style="width: 100%;" alt="A generic square placeholder image with rounded corners in a figure.">
-                        <figcaption class="figure-caption">A caption for the above image.</figcaption>
+                        <a href="/img/<%= image.img_name %>" download="<%= image.img_name %>">download</a>
+                        <a href="/delete/<%= image.img_name %>">delete</a>
                     </figure>
                 <% }) %>
             </div>
@@ -22,7 +24,8 @@
                 <% imgCol3.forEach((image, index) => { %>
                     <figure class="figure-img img-fluid">
                         <img src="/img/<%= image.img_name %>" class="figure-img img-fluid" style="width: 100%;" alt="A generic square placeholder image with rounded corners in a figure.">
-                        <figcaption class="figure-caption">A caption for the above image.</figcaption>
+                        <a href="/img/<%= image.img_name %>" download="<%= image.img_name %>">download</a>
+                        <a href="/delete/<%= image.img_name %>">delete</a>
                     </figure>
                 <% }) %>
             </div>

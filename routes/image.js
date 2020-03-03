@@ -1,18 +1,23 @@
 const fs = require('fs');
+const shortid = require('shortid');
+const path = require('path');
 
 module.exports = {
     uploadPage: (req, res) => {
         res.render('upload.ejs', {
             title: 'Carbon Copy - Upload',
-            message: ''
+            message: '',
+            link: ''
         });
     },
     upload: (req, res) => {
 
         let uploadFile = req.files.image;
-        let imageName = 'test.' + uploadFile.name;
+        let imgExt = path.extname(uploadFile.name);
+        let imgName = uploadFile.name.substr(0, uploadFile.name.length-imgExt.length);
+        let imgFile = imgName + imgExt;
 
-        let imgQuery = "SELECT * FROM image_collection WHERE img_name = '" + imageName + "'";
+        let imgQuery = "SELECT * FROM image_collection WHERE img_name = '" + imgName + "'";
 
         db.query(imgQuery, (err, result) => {
           if (err) {
@@ -26,19 +31,25 @@ module.exports = {
             });
           } else {
               if (uploadFile.mimetype === 'image/png' || uploadFile.mimetype === 'image/jpeg' || uploadFile.mimetype === 'image/gif') {
-                uploadFile.mv(`public/img/${imageName}`, function(err) {
+                uploadFile.mv(`public/img/${imgFile}`, function(err) {
                   if (err) {
                     return res.status(500).send(err);
                   }
 
-                  let query = "INSERT INTO image_collection (img_name) VALUES ('" + imageName + "')";
+                  let uuid = shortid.generate();
+
+                  let query = `INSERT INTO image_collection (uuid, img_name, img_ext) VALUES ('${uuid}', '${imgName}', '${imgExt}')`;
 
                   db.query(query, (err, result) => {
                     if (err) {
                       return res.status(500).send(err);
                     }
 
-                    res.redirect('/upload');
+                    res.render('upload.ejs', {
+                      title: 'Carbon Copy - Upload',
+                      message: '',
+                      link: `http://localhost:5000/img/${uuid}`
+                    });
                   });
                 });
               } else {
@@ -60,6 +71,7 @@ module.exports = {
           res.redirect('/');
         }
         
+        // let imgFile = result[0].img_name + result[0].img_ext;
         var col1 = [], col2 = [], col3 = [];
         var uno = Math.ceil(result.length/3);
         var dos = Math.ceil((result.length/3)*2);
@@ -79,7 +91,8 @@ module.exports = {
             break;
           }
         }
-        // console.log(col1,col2);
+
+
 
         res.render('collection.ejs', {
           title: 'Carbon Copy - Collection',
@@ -112,6 +125,27 @@ module.exports = {
             res.redirect('/collection');
           });
         });
+      });
+    },
+    imgView: (req, res) => {
+      let uuid = req.params.id;
+
+      let imgQuery = `SELECT img_name, img_ext FROM image_collection WHERE uuid = '${uuid}'`;
+
+      db.query(imgQuery, (err, result) => {
+        if (err) {
+          res.status(500).send(err);
+        }
+
+        if(result.length > 0) {
+          let imgFile = result[0].img_name + result[0].img_ext;
+
+          res.render('view.ejs', {
+            message: '',
+            title: 'Carbon Copy - View',
+            image: imgFile
+          });
+        }
       });
     }
 }

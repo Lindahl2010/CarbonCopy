@@ -6,6 +6,7 @@
 
 DROP DATABASE IF EXISTS carbon_copy;
 CREATE DATABASE carbon_copy;
+USE carbon_copy;
 
 --
 -- Table structure for table 'accounts'

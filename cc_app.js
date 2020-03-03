@@ -6,7 +6,7 @@ const path = require('path');
 const app = express();
 
 const {getHomePage} = require('./routes/cc_index')
-const {upload, uploadPage, collectionPage, deleteImage} = require('./routes/image')
+const {upload, uploadPage, collectionPage, deleteImage, imgView} = require('./routes/image')
 const {aboutPage, contactPage, privacyPage, tosPage} = require('./routes/info');
 const port = 5000;
 
@@ -42,6 +42,7 @@ app.get('/contact', contactPage);
 app.get('/privacy', privacyPage);
 app.get('/terms-of-service', tosPage);
 app.get('/delete/:img_name', deleteImage);
+app.get('/img/:id', imgView);
 app.post('/upload', upload);
 
 // Set app to listen on specified port 

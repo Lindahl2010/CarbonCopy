@@ -1,0 +1,9 @@
+
+<%- include ('partials/header.ejs'); -%>
+<div class="container upload-top">
+  <% if (message != '') { %>
+    <p class="text-center text-danger"><%= message %></p>
+  <% } %>
+  <img src="/img/<%= image %>" style="width: 100%;">
+</div>
+<%- include ('partials/footer.ejs'); -%>

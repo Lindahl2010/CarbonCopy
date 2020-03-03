@@ -5,30 +5,39 @@
             <div class="col">
                 <% imgCol1.forEach((image, index) => { %>
                     <figure class="figure-img img-fluid">
-                        <img src="/img/<%= image.img_name + image.img_ext %>" class="figure-img img-fluid" style="width: 100%;" alt="A generic square placeholder image with rounded corners in a figure.">
-                        <a href="/img/<%= image.img_name + image.img_ext %>" download="<%= image.img_name %>">download</a>
-                        <a href="/delete/<%= image.img_name %>">delete</a>
+                        <a href="/img/<%= image.uuid %>">
+                            <img src="/img/<%= image.img_name + image.img_ext %>" name="uuid" class="figure-img img-fluid" style="width: 100%;" alt="Image in Collection.">
+                        </a>
+                        <a href="/img/<%= image.img_name + image.img_ext %>" download="<%= image.img_name + image.img_ext %>">Download</a>
+                        <a href="/delete/<%= image.img_name %>">Delete</a>
                         <p><%= image.img_name + image.img_ext %></p>
+                        <p><%= image.tags %></p>
                     </figure>
                 <% }) %>
             </div>
             <div class="col">
                 <% imgCol2.forEach((image, index) => { %>
                     <figure class="figure-img img-fluid">
-                        <img src="/img/<%= image.img_name + image.img_ext %>" class="figure-img img-fluid" style="width: 100%;" alt="A generic square placeholder image with rounded corners in a figure.">
-                        <a href="/img/<%= image.img_name + image.img_ext %>" download="<%= image.img_name %>">download</a>
-                        <a href="/delete/<%= image.img_name %>">delete</a>
+                        <a href="/img/<%= image.uuid %>">
+                            <img src="/img/<%= image.img_name + image.img_ext %>" class="figure-img img-fluid" style="width: 100%;" alt="Image in Collection.">
+                        </a>
+                        <a href="/img/<%= image.img_name + image.img_ext %>" download="<%= image.img_name + image.img_ext  %>">Download</a>
+                        <a href="/delete/<%= image.img_name %>">Delete</a>
                         <p><%= image.img_name + image.img_ext %></p>
+                        <p><%= image.tags %></p>
                     </figure>
                 <% }) %>
             </div>
             <div class="col">
                 <% imgCol3.forEach((image, index) => { %>
                     <figure class="figure-img img-fluid">
-                        <img src="/img/<%= image.img_name + image.img_ext %>" class="figure-img img-fluid" style="width: 100%;" alt="A generic square placeholder image with rounded corners in a figure.">
-                        <a href="/img/<%= image.img_name + image.img_ext %>" download="<%= image.img_name %>">download</a>
-                        <a href="/delete/<%= image.img_name %>">delete</a>
+                        <a href="/img/<%= image.uuid %>">
+                            <img src="/img/<%= image.img_name + image.img_ext %>" class="figure-img img-fluid" style="width: 100%;" alt="Image in Collection.">
+                        </a>
+                        <a href="/img/<%= image.img_name + image.img_ext %>" download="<%= image.img_name + image.img_ext  %>">Download</a>
+                        <a href="/delete/<%= image.img_name %>">Delete</a>
                         <p><%= image.img_name + image.img_ext %></p>
+                        <p><%= image.tags %></p>
                     </figure>
                 <% }) %>
             </div>

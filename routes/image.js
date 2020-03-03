@@ -13,11 +13,12 @@ module.exports = {
     upload: (req, res) => {
 
         let uploadFile = req.files.image;
+        let image_name = req.body.img_name;
+        let tags = req.body.tags;
         let imgExt = path.extname(uploadFile.name);
-        let imgName = uploadFile.name.substr(0, uploadFile.name.length-imgExt.length);
-        let imgFile = imgName + imgExt;
+        let imgFile = image_name + imgExt;
 
-        let imgQuery = "SELECT * FROM image_collection WHERE img_name = '" + imgName + "'";
+        let imgQuery = "SELECT * FROM image_collection WHERE img_name = '" + image_name + "'";
 
         db.query(imgQuery, (err, result) => {
           if (err) {
@@ -38,7 +39,7 @@ module.exports = {
 
                   let uuid = shortid.generate();
 
-                  let query = `INSERT INTO image_collection (uuid, img_name, img_ext) VALUES ('${uuid}', '${imgName}', '${imgExt}')`;
+                  let query = `INSERT INTO image_collection (uuid, img_name, img_ext, tags) VALUES ('${uuid}', '${image_name}', '${imgExt}', '${tags}')`;
 
                   db.query(query, (err, result) => {
                     if (err) {
@@ -100,6 +101,12 @@ module.exports = {
         });
       });
     },
+    loginPage: (req, res) => {
+      res.render('login.ejs', {
+        title: 'Carbon Copy - Login Page',
+        message: ''
+      });
+    },
     deleteImage: (req, res) => {
 
       let image_name = req.params.img_name;
@@ -130,7 +137,7 @@ module.exports = {
       });
     },
     imgView: (req, res) => {
-      let uuid = req.params.id;
+      let uuid = req.params.uuid;
 
       let imgQuery = `SELECT img_name, img_ext FROM image_collection WHERE uuid = '${uuid}'`;
 

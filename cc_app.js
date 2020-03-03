@@ -11,7 +11,7 @@ const {aboutPage, contactPage, privacyPage, tosPage} = require('./routes/info');
 const port = 5000;
 
 const db = mysql.createConnection ({
-    host: '192.168.183.11',
+    host: '192.168.137.130',
     user: 'linelij',
     password: 'Password01',
     database: 'carbon_copy'

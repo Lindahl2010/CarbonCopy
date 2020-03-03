@@ -6,12 +6,12 @@ const path = require('path');
 const app = express();
 
 const {getHomePage} = require('./routes/cc_index')
-const {upload, uploadPage, collectionPage} = require('./routes/image')
+const {upload, uploadPage, collectionPage, deleteImage} = require('./routes/image')
 const {aboutPage, contactPage, privacyPage, tosPage} = require('./routes/info');
 const port = 5000;
 
 const db = mysql.createConnection ({
-    host: '192.168.183.11',
+    host: '192.168.137.130',
     user: 'linelij',
     password: 'Password01',
     database: 'carbon_copy'
@@ -41,6 +41,7 @@ app.get('/about', aboutPage);
 app.get('/contact', contactPage);
 app.get('/privacy', privacyPage);
 app.get('/terms-of-service', tosPage);
+app.get('/delete/:img_name', deleteImage);
 app.post('/upload', upload);
 
 // Set app to listen on specified port 

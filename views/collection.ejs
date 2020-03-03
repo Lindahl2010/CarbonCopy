@@ -4,21 +4,29 @@
         <% if (images.length > 0) {%>
             <div class="col">
                 <% imgCol1.forEach((image, index) => { %>
-                    <!-- <img src="/img/<%= image.img_name %>" class="" alt="Collection"> -->
-                    <figure class="figure img-bot">
-                        <img src="/img/<%= image.img_name %>" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
-                        <figcaption class="figure-caption">A caption for the above image.</figcaption>
+                    <figure class="figure-img img-fluid">
+                        <img src="/img/<%= image.img_name %>" class="figure-img img-fluid" style="width: 100%;" alt="A generic square placeholder image with rounded corners in a figure.">
+                        <a href="/img/<%= image.img_name %>" download="<%= image.img_name %>">download</a>
+                        <a href="/delete/<%= image.img_name %>">delete</a>
                     </figure>
                 <% }) %>
             </div>
             <div class="col">
                 <% imgCol2.forEach((image, index) => { %>
-                    <img src="/img/<%= image.img_name %>" class="" alt="Collection">
+                    <figure class="figure-img img-fluid">
+                        <img src="/img/<%= image.img_name %>" class="figure-img img-fluid" style="width: 100%;" alt="A generic square placeholder image with rounded corners in a figure.">
+                        <a href="/img/<%= image.img_name %>" download="<%= image.img_name %>">download</a>
+                        <a href="/delete/<%= image.img_name %>">delete</a>
+                    </figure>
                 <% }) %>
             </div>
             <div class="col">
                 <% imgCol3.forEach((image, index) => { %>
-                    <img src="/img/<%= image.img_name %>" class="" alt="Collection">
+                    <figure class="figure-img img-fluid">
+                        <img src="/img/<%= image.img_name %>" class="figure-img img-fluid" style="width: 100%;" alt="A generic square placeholder image with rounded corners in a figure.">
+                        <a href="/img/<%= image.img_name %>" download="<%= image.img_name %>">download</a>
+                        <a href="/delete/<%= image.img_name %>">delete</a>
+                    </figure>
                 <% }) %>
             </div>
         <% } else { %>

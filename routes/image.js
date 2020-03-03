@@ -3,7 +3,7 @@ const fs = require('fs');
 module.exports = {
     uploadPage: (req, res) => {
         res.render('upload.ejs', {
-            title: 'Carbon Copy Upload',
+            title: 'Carbon Copy - Upload',
             message: ''
         });
     },
@@ -22,7 +22,7 @@ module.exports = {
             message = 'Image already exists.';
             res.render('upload.ejs', {
                 message,
-                title: 'Carbon Copy Upload'
+                title: 'Carbon Copy - Upload'
             });
           } else {
               if (uploadFile.mimetype === 'image/png' || uploadFile.mimetype === 'image/jpeg' || uploadFile.mimetype === 'image/gif') {
@@ -45,7 +45,7 @@ module.exports = {
                 message = "Invalid File format. Only 'gif', 'jpeg' and 'png' images are allowed.";
                 res.render('upload.ejs', {
                     message,
-                    title: 'Carbon Copy Upload'
+                    title: 'Carbon Copy - Upload'
                 });
               }
             }
@@ -61,8 +61,8 @@ module.exports = {
         }
         
         var col1 = [], col2 = [], col3 = [];
-        var uno = result.length/3;
-        var dos = (result.length/3)*2;
+        var uno = Math.ceil(result.length/3);
+        var dos = Math.ceil((result.length/3)*2);
         var tres = result.length;
 
         for (i = 0; i < 3; i++) {
@@ -92,5 +92,26 @@ module.exports = {
     },
     deleteImage: (req, res) => {
 
+      let image_name = req.params.img_name;
+      let imgQuery = 'SELECT img_name FROM `image_collection` WHERE img_name = "' + image_name + '"';
+      let deleteImage = 'DELETE FROM image_collection WHERE img_name = "' + image_name + '"';
+
+      db.query(imgQuery, (err, result) => {
+        if (err) {
+          return res.status(500).send(err);
+        }
+
+        fs.unlink(`public/img/${image_name}`, (err) => {
+          if (err) {
+            return res.status(500).send(err);
+          }
+          db.query(deleteImage, (err, result) => {
+            if (err) {
+              return res.status(500).send(err);
+            }
+            res.redirect('/collection');
+          });
+        });
+      });
     }
 }

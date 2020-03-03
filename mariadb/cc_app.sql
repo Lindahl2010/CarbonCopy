@@ -4,6 +4,9 @@
 -- ------------------------------------------------------
 -- Server version       10.1.44-MariaDB-0ubuntu0.18.04.1
 
+DROP DATABASE IF EXISTS carbon_copy;
+CREATE DATABASE carbon_copy;
+
 --
 -- Table structure for table 'accounts'
 -- 

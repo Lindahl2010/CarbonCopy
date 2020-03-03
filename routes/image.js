@@ -71,7 +71,6 @@ module.exports = {
           res.redirect('/');
         }
         
-        // let imgFile = result[0].img_name + result[0].img_ext;
         var col1 = [], col2 = [], col3 = [];
         var uno = Math.ceil(result.length/3);
         var dos = Math.ceil((result.length/3)*2);
@@ -92,8 +91,6 @@ module.exports = {
           }
         }
 
-
-
         res.render('collection.ejs', {
           title: 'Carbon Copy - Collection',
           images: result,
@@ -106,24 +103,29 @@ module.exports = {
     deleteImage: (req, res) => {
 
       let image_name = req.params.img_name;
-      let imgQuery = 'SELECT img_name FROM `image_collection` WHERE img_name = "' + image_name + '"';
-      let deleteImage = 'DELETE FROM image_collection WHERE img_name = "' + image_name + '"';
+      let imgQuery = 'SELECT img_name, img_ext FROM `image_collection` WHERE img_name = "' + image_name + '"';
 
       db.query(imgQuery, (err, result) => {
         if (err) {
           return res.status(500).send(err);
         }
 
-        fs.unlink(`public/img/${image_name}`, (err) => {
+        let image = image_name + result[0].img_ext;
+        fs.unlink(`public/img/${image}`, (err) => {
           if (err) {
             return res.status(500).send(err);
           }
-          db.query(deleteImage, (err, result) => {
-            if (err) {
-              return res.status(500).send(err);
-            }
-            res.redirect('/collection');
-          });
+          else {
+            
+            let deleteImage = 'DELETE FROM `image_collection` WHERE img_name = "' + image_name + '"';
+
+            db.query(deleteImage, (err, result) => {
+              if (err) {
+                return res.status(500).send(err);
+              }
+              res.redirect('/collection');
+            });
+          }
         });
       });
     },

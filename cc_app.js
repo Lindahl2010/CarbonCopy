@@ -14,7 +14,7 @@ const port = 5000;
 
 // Database connection creation
 const db = mysql.createConnection ({
-    host: '192.168.137.130',
+    host: '192.168.183.11',
     user: 'linelij',
     password: 'Password01',
     database: 'carbon_copy'

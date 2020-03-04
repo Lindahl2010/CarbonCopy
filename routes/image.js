@@ -1,18 +1,24 @@
 const fs = require('fs');
+const shortid = require('shortid');
+const path = require('path');
 
 module.exports = {
     uploadPage: (req, res) => {
         res.render('upload.ejs', {
             title: 'Carbon Copy - Upload',
-            message: ''
+            message: '',
+            link: ''
         });
     },
     upload: (req, res) => {
 
         let uploadFile = req.files.image;
-        let imageName = 'test.' + uploadFile.name;
+        let image_name = req.body.img_name;
+        let tags = req.body.tags;
+        let imgExt = path.extname(uploadFile.name);
+        let imgFile = image_name + imgExt;
 
-        let imgQuery = "SELECT * FROM image_collection WHERE img_name = '" + imageName + "'";
+        let imgQuery = "SELECT * FROM image_collection WHERE img_name = '" + image_name + "'";
 
         db.query(imgQuery, (err, result) => {
           if (err) {
@@ -26,19 +32,25 @@ module.exports = {
             });
           } else {
               if (uploadFile.mimetype === 'image/png' || uploadFile.mimetype === 'image/jpeg' || uploadFile.mimetype === 'image/gif') {
-                uploadFile.mv(`public/img/${imageName}`, function(err) {
+                uploadFile.mv(`public/img/${imgFile}`, function(err) {
                   if (err) {
                     return res.status(500).send(err);
                   }
 
-                  let query = "INSERT INTO image_collection (img_name) VALUES ('" + imageName + "')";
+                  let uuid = shortid.generate();
+
+                  let query = `INSERT INTO image_collection (uuid, img_name, img_ext, tags) VALUES ('${uuid}', '${image_name}', '${imgExt}', '${tags}')`;
 
                   db.query(query, (err, result) => {
                     if (err) {
                       return res.status(500).send(err);
                     }
 
-                    res.redirect('/upload');
+                    res.render('upload.ejs', {
+                      title: 'Carbon Copy - Upload',
+                      message: '',
+                      link: `http://localhost:5000/img/${uuid}`
+                    });
                   });
                 });
               } else {
@@ -79,7 +91,6 @@ module.exports = {
             break;
           }
         }
-        // console.log(col1,col2);
 
         res.render('collection.ejs', {
           title: 'Carbon Copy - Collection',
@@ -90,28 +101,60 @@ module.exports = {
         });
       });
     },
+    loginPage: (req, res) => {
+      res.render('login.ejs', {
+        title: 'Carbon Copy - Login Page',
+        message: ''
+      });
+    },
     deleteImage: (req, res) => {
 
       let image_name = req.params.img_name;
-      let imgQuery = 'SELECT img_name FROM `image_collection` WHERE img_name = "' + image_name + '"';
-      let deleteImage = 'DELETE FROM image_collection WHERE img_name = "' + image_name + '"';
+      let imgQuery = 'SELECT img_name, img_ext FROM `image_collection` WHERE img_name = "' + image_name + '"';
 
       db.query(imgQuery, (err, result) => {
         if (err) {
           return res.status(500).send(err);
         }
 
-        fs.unlink(`public/img/${image_name}`, (err) => {
+        let image = image_name + result[0].img_ext;
+        fs.unlink(`public/img/${image}`, (err) => {
           if (err) {
             return res.status(500).send(err);
           }
-          db.query(deleteImage, (err, result) => {
-            if (err) {
-              return res.status(500).send(err);
-            }
-            res.redirect('/collection');
-          });
+          else {
+            
+            let deleteImage = 'DELETE FROM `image_collection` WHERE img_name = "' + image_name + '"';
+
+            db.query(deleteImage, (err, result) => {
+              if (err) {
+                return res.status(500).send(err);
+              }
+              res.redirect('/collection');
+            });
+          }
         });
+      });
+    },
+    imgView: (req, res) => {
+      let uuid = req.params.uuid;
+
+      let imgQuery = `SELECT img_name, img_ext FROM image_collection WHERE uuid = '${uuid}'`;
+
+      db.query(imgQuery, (err, result) => {
+        if (err) {
+          res.status(500).send(err);
+        }
+
+        if(result.length > 0) {
+          let imgFile = result[0].img_name + result[0].img_ext;
+
+          res.render('view.ejs', {
+            message: '',
+            title: 'Carbon Copy - View',
+            image: imgFile
+          });
+        }
       });
     }
 }

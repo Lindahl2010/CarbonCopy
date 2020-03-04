@@ -1,3 +1,4 @@
+// All variables for different packages used in the project
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const session = require('express-session');
@@ -5,11 +6,13 @@ const mysql = require('mysql');
 const path = require('path');
 const app = express();
 
+// Specifying route variables for redirecting traffic
 const {getHomePage} = require('./routes/cc_index')
-const {upload, uploadPage, collectionPage, deleteImage} = require('./routes/image')
+const {upload, uploadPage, collectionPage, loginPage, deleteImage, imgView} = require('./routes/image')
 const {aboutPage, contactPage, privacyPage, tosPage} = require('./routes/info');
 const port = 5000;
 
+// Database connection creation
 const db = mysql.createConnection ({
     host: '192.168.183.11',
     user: 'linelij',
@@ -17,7 +20,7 @@ const db = mysql.createConnection ({
     database: 'carbon_copy'
 });
 
-// connect to database
+// Connect to database
 db.connect((err) => {
     if (err) {
         throw err;
@@ -41,7 +44,9 @@ app.get('/about', aboutPage);
 app.get('/contact', contactPage);
 app.get('/privacy', privacyPage);
 app.get('/terms-of-service', tosPage);
+app.get('/login', loginPage);
 app.get('/delete/:img_name', deleteImage);
+app.get('/img/:uuid', imgView);
 app.post('/upload', upload);
 
 // Set app to listen on specified port 

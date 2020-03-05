@@ -1,4 +1,7 @@
 <%- include ('partials/header.ejs'); -%>
+<% if (message != '') { %>
+  <p class="text-center text-danger"><%= message %></p>
+<% } %>
 <div id="mainCarousel" class="carousel slide" data-ride="carousel" data-interval="7777">
   <div class="carousel-inner">
     <div class="carousel-item active">

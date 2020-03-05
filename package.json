@@ -24,7 +24,7 @@
   "homepage": "https://github.com/Lindahl2010/CarbonCopy#readme",
   "dependencies": {
     "@okta/oidc-middleware": "^0.1.3",
-    "@okta/okta-sdk-nodejs": "^1.1.0",
+    "@okta/okta-sdk-nodejs": "^3.2.0",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.4.1",
     "ejs": "^3.0.1",
@@ -32,8 +32,10 @@
     "express-fileupload": "^1.1.6",
     "express-generator": "^4.16.0",
     "express-session": "^1.15.6",
-    "jquery": "^1.9.1",
+    "jquery": "^3.4.1",
     "mysql": "^2.18.1",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
     "req-flash": "0.0.3",
     "short-id": "0.1.0-1",
     "shortid": "^2.2.15"

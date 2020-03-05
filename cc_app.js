@@ -2,14 +2,17 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const session = require('express-session');
+// var passport = require('passport');
+// var Strategy = require('passport-local').Strategy;
 const mysql = require('mysql');
 const path = require('path');
 const app = express();
 
 // Specifying route variables for redirecting traffic
 const {getHomePage} = require('./routes/cc_index')
-const {upload, uploadPage, collectionPage, loginPage, deleteImage, imgView} = require('./routes/image')
+const {upload, uploadPage, collectionPage, deleteImage, imgView} = require('./routes/image')
 const {aboutPage, contactPage, privacyPage, tosPage} = require('./routes/info');
+const {loginPage, login, signup} = require('./routes/users');
 const port = 5000;
 
 // Database connection creation
@@ -35,6 +38,19 @@ app.set('views', [__dirname + '/views', __dirname + '/views/info']); // Sets Exp
 app.set('view engine', 'ejs'); // Configures the template engine 
 app.use(express.static(path.join(__dirname, 'public'))); // Configures Express to use this public folder
 app.use(fileUpload()); // Configure file upload
+app.use(require('body-parser').urlencoded({ extended: true }));
+app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 60000 }
+}));
+
+// const sess = req.session;
+// var userId = req.session.userId;
+// req.session.userId = results[0].id;
+// req.session.user = results[0];
 
 // Routes for the application
 app.get('/', getHomePage);
@@ -45,8 +61,11 @@ app.get('/contact', contactPage);
 app.get('/privacy', privacyPage);
 app.get('/terms-of-service', tosPage);
 app.get('/login', loginPage);
+app.get('/signup', signup);
 app.get('/delete/:img_name', deleteImage);
 app.get('/img/:uuid', imgView);
+app.post('/login', login);
+app.post('/signup', signup);
 app.post('/upload', upload);
 
 // Set app to listen on specified port 

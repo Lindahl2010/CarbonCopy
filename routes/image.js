@@ -101,12 +101,6 @@ module.exports = {
         });
       });
     },
-    loginPage: (req, res) => {
-      res.render('login.ejs', {
-        title: 'Carbon Copy - Login Page',
-        message: ''
-      });
-    },
     deleteImage: (req, res) => {
 
       let image_name = req.params.img_name;

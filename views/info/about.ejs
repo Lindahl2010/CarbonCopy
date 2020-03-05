@@ -1,3 +1,24 @@
 <%- include ('partials/header.ejs'); -%>
-
+<style>
+    article {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .container {
+        padding: 20px 20px;
+    }
+</style>
+<article class="container">
+    <h1 style="align-content: flex-start;">About Carbon Copy</h1>
+    <p style="justify-content: center;">
+        Carbon Copy is an Image Hosting Web Application that has been developed through the use of NodeJS alongside ExpressJS to host front-end views among 
+        other packages(PassportJS, BcrypJS, etc.). This application is currently still under development and is primarily being used for a project in Software Architecture at 
+        Dunwoody College of Technology. The current functionality of the site primarily lies in the ability to manipulate images on the web, whether one is looking to upload 
+        images, download and/or delete them, and we are looking to implement user accounts that will store user specific images that have been uploaded. Carbon Copy's production 
+        environment is up on AWS using an EC2 Instance to host the web application and it's code/logic while the database is using MariaDB on an AWS RDS instance. The project 
+        team is currently looking to create a development environment, as it is currently being developed locally on the teams personal laptops. Having this application out on 
+        some servers would greatly increase collaboration and current issues/blocks. If you have any questions about the site in its current state, please feel free to contact us 
+        with any reccommendations or questions that you have. 
+    </p>
+</article>
 <%- include ('partials/footer.ejs'); -%>
